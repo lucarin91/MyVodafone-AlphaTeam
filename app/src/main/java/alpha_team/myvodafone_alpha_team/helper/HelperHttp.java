@@ -24,7 +24,7 @@ public class HelperHttp {
 
 
     public static void downloadEvent(final Context context, final String url) {
-        new AsyncTask<Void, Void, String>() {
+        new AsyncTask<Void, Void, JSONArray>() {
 
             @Override
             protected void onPreExecute() {
@@ -33,19 +33,20 @@ public class HelperHttp {
             }
 
             @Override
-            protected String doInBackground(Void... params) {
+            protected JSONArray doInBackground(Void... params) {
                 String json_string = null;
                 try {
                     json_string = downloadUrl(url);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                //return stringToJsonArray(json_string);
-                return json_string;
+                return stringToJsonArray(json_string);
+                //return json_string;
             }
 
             @Override
-            protected void onPostExecute(String jsonArray) {
+            protected void onPostExecute(JSONArray jsonArray) {
+                Log.i("HTTP",jsonArray.toString());
                 /*
                 EventiListFragment.progressBar = false;
                 ((Activity) context).invalidateOptionsMenu();
@@ -82,7 +83,7 @@ public class HelperHttp {
         try {
             URL url = new URL(myurl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            //conn.setRequestProperty("User-agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/22.0.1229.94 Safari/537.4" );
+            conn.setRequestProperty("Authorization", "Basic cm9vdDpvcmllbnRkYg==" );
             conn.setReadTimeout(10000);
             conn.setConnectTimeout(15000);
             conn.setRequestMethod("GET");
@@ -95,8 +96,10 @@ public class HelperHttp {
             //converte inputStream in stringa
             String contentAsString = readIt(is);
             return contentAsString;
-        }
-        finally {
+        }catch(IOException e) {
+            Log.e("HTTP", e.getMessage());
+            return null;
+        }finally {
             if (is != null) {
                 is.close();
             }
@@ -121,7 +124,7 @@ public class HelperHttp {
             String status = json_data.getString("results");
             return new JSONArray(status);
         } catch (JSONException e) {
-            Log.e("DataProvide-stringToJsonArray", "JSONException " + " " + e);
+            Log.e("DataProvide-stringToJsonArray", "JSONException " + e);
             return null;
         }
     }
