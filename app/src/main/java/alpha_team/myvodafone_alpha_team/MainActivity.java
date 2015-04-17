@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,7 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
+
+import alpha_team.myvodafone_alpha_team.helper.HelperHttp;
 
 
 public class MainActivity extends ActionBarActivity
@@ -45,6 +49,14 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+
+        Button button = (Button) findViewById(R.id.testButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                HelperHttp.downloadEvent(getApplicationContext(), "http://192.168.42.216:2480/query/vf/sql/select%20*%20from%20rtxh");
+            }
+        });
     }
 
     @Override
