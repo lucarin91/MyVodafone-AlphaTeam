@@ -23,7 +23,6 @@ import java.net.URL;
  */
 public class HelperHttp {
 
-
     public static void downloadSumFuoriSoglia(final Context context, final TextView chiamate, final String url) {
         new AsyncTask<Void, Void, JSONArray>() {
 
