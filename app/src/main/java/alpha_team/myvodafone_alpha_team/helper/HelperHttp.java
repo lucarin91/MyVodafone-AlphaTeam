@@ -24,8 +24,8 @@ import java.net.URL;
 public class HelperHttp {
 
 
-    public static void downloadSumFuoriSoglia(final Context context, final TextView chiamate, final String url) {
-        new AsyncTask<Void, Void, JSONArray>() {
+    public static void downloadSumFuoriSoglia(final Context context, final TextView text, final MethodSum fun) {
+        new AsyncTask<Void, Void, String>() {
 
             @Override
             protected void onPreExecute() {
@@ -34,25 +34,16 @@ public class HelperHttp {
             }
 
             @Override
-            protected JSONArray doInBackground(Void... params) {
-                String json_string = null;
-                try {
-                    json_string = downloadUrl(url);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return stringToJsonArray(json_string);
-                //return json_string;
+            protected String doInBackground(Void... params) {
+                String string = null;
+                return String.valueOf(fun.run());
             }
 
             @Override
-            protected void onPostExecute(JSONArray json) {
-                Log.i("HTTP",json.toString());
-                try {
-                    chiamate.setText(json.getJSONObject(0).getInt("sum"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            protected void onPostExecute(String string) {
+                Log.i("HTTP",string);
+                text.setText(string);
+
                 /*
                 EventiListFragment.progressBar = false;
                 ((Activity) context).invalidateOptionsMenu();
@@ -133,4 +124,8 @@ public class HelperHttp {
             return null;
         }
     }
+    public interface MethodSum{
+        public double run();
+    }
+
 }

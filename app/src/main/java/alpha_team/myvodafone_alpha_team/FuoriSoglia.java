@@ -11,6 +11,9 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import alpha_team.myvodafone_alpha_team.helper.HelperHttp;
 
 
@@ -21,8 +24,11 @@ public class FuoriSoglia extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fuori_soglia);
 
-        TextView chiamate = (TextView) findViewById(R.id.chiamate);
-        HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), chiamate, "");
+        final TextView chiamate = (TextView) findViewById(R.id.chiamate);
+        //final TextView  = (TextView) findViewById(R.id.chiamate);
+        //final TextView chiamate = (TextView) findViewById(R.id.chiamate);
+        //final TextView chiamate = (TextView) findViewById(R.id.chiamate);
+        //HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), chiamate, "");
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -37,8 +43,56 @@ public class FuoriSoglia extends ActionBarActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int pos, long id) {
-                // An item was selected. You can retrieve the selected item using
-                // parent.getItemAtPosition(pos)
+                String data1 = "";
+                String data2 = "";
+                Calendar date = null;
+                switch (pos){
+                    case 0:
+                        date = Calendar.getInstance();
+                        data1 = date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
+                        data2=data1;
+                        break;
+                    case 1:
+                        date = Calendar.getInstance();
+                        data1 = date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
+                        date.add(Calendar.MONTH,-1);
+                        data2 = date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
+                        break;
+                    case 2:
+                        date = Calendar.getInstance();
+                        date.add(Calendar.MONTH,-1);
+                        data1 = date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
+                        date.add(Calendar.MONTH,-2);
+                        data2 = date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
+
+                        break;
+                }
+
+                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(),chiamate,new HelperHttp.MethodSum(){
+                    @Override
+                    public double run(){
+                        return 1;
+                    }
+                });
+                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(),chiamate,new HelperHttp.MethodSum(){
+                    @Override
+                    public double run(){
+                        return 1;
+                    }
+                });
+                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(),chiamate,new HelperHttp.MethodSum(){
+                    @Override
+                    public double run(){
+                        return 1;
+                    }
+                });
+                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(),chiamate,new HelperHttp.MethodSum(){
+                    @Override
+                    public double run(){
+                        return 1;
+                    }
+                });
+
             }
 
             @Override
