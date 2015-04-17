@@ -161,7 +161,6 @@ public class FuoriSoglia2 extends ActionBarActivity
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setBackgroundDrawable();
         actionBar.setTitle(mTitle);
     }
 
