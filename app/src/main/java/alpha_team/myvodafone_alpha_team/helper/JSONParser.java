@@ -10,31 +10,29 @@ import java.util.Calendar;
  */
 public class JSONParser {
 
-    /**Take the date range, the type of service (calls, data, sms and extra services)
+    /**
+     * Take the date range, the type of service (calls, data, sms and extra services)
      * and returns the overall cost during the selected period.
      */
 
-    public JSONParser(){
-        helper = new HelperHttp();
-    }
-
-    public double computeCost(int service, String dateStart, String dateEnd){
+    public static double computeCost(int service, String dateStart, String dateEnd) {
 
         String s = new String();
         JSONArray arr;
+        double sum = 0;
 
-        if (service == 0){ //calls
+        if (service == 0) { //calls
 
-            String urlQuery = "http://localhost:2480/query/vf/sql/select RATED_FLAT_AMOUNT_EURO from rtxh where (START_D_T >= '" + dateStart + "' AND (START_D_T <= '" + dateEnd +"') AND (CALL_TYPE = 1) AND (SNCODE = 1)";
+            String urlQuery = "http://localhost:2480/query/vf/sql/select RATED_FLAT_AMOUNT_EURO from rtxh where (START_D_T >= '" + dateStart + "' AND (START_D_T <= '" + dateEnd + "') AND (CALL_TYPE = 1) AND (SNCODE = 1)";
 
-            try { s = HelperHttp.downloadUrl(urlQuery); }
-            catch (Exception e){
+            try {
+                s = HelperHttp.downloadUrl(urlQuery);
+            } catch (Exception e) {
                 System.err.println("errore");
             }
 
 
-        }
-        else if (service == 1) { //sms
+        } else if (service == 1) { //sms
             String urlQuery = "http://localhost:2480/query/vf/sql/select RATED_FLAT_AMOUNT_EURO from rtxh where (START_D_T >= " + dateStart + "' AND (START_D_T <= '" + dateEnd + "') and (CALL_TYPE = 1) and (SNCODE = 14)";
             try {
                 s = HelperHttp.downloadUrl(urlQuery);
@@ -42,35 +40,35 @@ public class JSONParser {
                 System.err.println("errore");
             }
 
-            if (!s.isEmpty()){
-                arr = HelperHttp.stringToJsonArray(s);
-            int sum = 0;
+            if (!s.isEmpty()) {
+                arr = (JSONArray) HelperHttp.stringToJsonArray(s);
 
-            for (int i = 0; i < arr.length(); i++){
-                ((JSONObject) arr[i]).get()
+                for (int i = 0; i < arr.length(); i++) {
+                    try {
+                        sum += (arr.getJSONObject(i).getDouble("RATED_FLAT_AMOUNT_EURO"));
+                    } catch (Exception e) {
+
+                    }
+                }
+                return sum;
             }
-        }
 
-        }
-        else if (service == 2){ //data
-            String urlQuery = "http://localhost:2480/query/vf/sql/select RATED_FLAT_AMOUNT_EURO from rtxh where (START_D_T >= " + dateStart + "' AND (START_D_T <= '" + dateEnd +"') and (CALL_TYPE = 10) and (SNCODE = 508)";
-            try { s = HelperHttp.downloadUrl(urlQuery); }
-            catch (Exception e){
+        } else if (service == 2) { //data
+            String urlQuery = "http://localhost:2480/query/vf/sql/select RATED_FLAT_AMOUNT_EURO from rtxh where (START_D_T >= " + dateStart + "' AND (START_D_T <= '" + dateEnd + "') and (CALL_TYPE = 10) and (SNCODE = 508)";
+            try {
+                s = HelperHttp.downloadUrl(urlQuery);
+            } catch (Exception e) {
+                System.err.println("errore");
+            }
+        } else if (service == 3) { //extra VAR
+            String urlQuery = "http://localhost:2480/query/vf/sql/select RATED_FLAT_AMOUNT_EURO from rtxh_ch where (START_D_T >= " + dateStart + "' AND (START_D_T <= '" + dateEnd + "')";
+            try {
+                s = HelperHttp.downloadUrl(urlQuery);
+            } catch (Exception e) {
                 System.err.println("errore");
             }
         }
-        else if (service == 3){ //extra VAR
-            String urlQuery = "http://localhost:2480/query/vf/sql/select RATED_FLAT_AMOUNT_EURO from rtxh_ch where (START_D_T >= " + dateStart + "' AND (START_D_T <= '" + dateEnd +"')";
-            try { s = HelperHttp.downloadUrl(urlQuery); }
-            catch (Exception e){
-                System.err.println("errore");
-            }
-        }
 
-
-
-
-
+    return 0;
     }
-
 }
