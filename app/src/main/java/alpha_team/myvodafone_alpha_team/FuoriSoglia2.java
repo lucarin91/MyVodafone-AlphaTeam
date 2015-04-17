@@ -1,7 +1,6 @@
 package alpha_team.myvodafone_alpha_team;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -17,18 +16,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.ViewFlipper;
+
+import java.util.Calendar;
 
 import alpha_team.myvodafone_alpha_team.helper.HelperHttp;
 
 
-public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, FuoriSogliaFragment.OnFragmentInteractionListener{
+public class FuoriSoglia2 extends ActionBarActivity
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -39,11 +38,12 @@ public class MainActivity extends ActionBarActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+    String TAG = "FUORI_SOGLIA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_fuori_soglia2);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -54,51 +54,84 @@ public class MainActivity extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
+        final TextView chiamate = (TextView) findViewById(R.id.chiamate);
+        final TextView messaggi = (TextView) findViewById(R.id.messaggi);
+        final TextView internet = (TextView) findViewById(R.id.internet);
+        final TextView addOn = (TextView) findViewById(R.id.addOn);
+        //HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), chiamate, "");
 
-        //Button button = (Button) findViewById(R.id.testButton);
-        /*button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                HelperHttp.downloadEvent(getApplicationContext(), "http://192.168.43.228:2480/query/vf/sql/select%20*%20from%20rtxh");
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.planets_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new  AdapterView.OnItemSelectedListener(){
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int pos, long id) {
+                String data1 = "";
+                String data2 = "";
+                Calendar date = null;
+                switch (pos){
+                    case 0:
+                        date = Calendar.getInstance();
+                        data1 = date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
+                        data2=data1;
+                        break;
+                    case 1:
+                        date = Calendar.getInstance();
+                        data1 = date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
+                        date.add(Calendar.MONTH,-1);
+                        data2 = date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
+                        break;
+                    case 2:
+                        date = Calendar.getInstance();
+                        date.add(Calendar.MONTH,-1);
+                        data1 = date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
+                        date.add(Calendar.MONTH,-2);
+                        data2 = date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
+
+                        break;
+                }
+
+                Log.i(TAG, data1.toString());
+                Log.i(TAG, data2.toString());
+                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), chiamate, new HelperHttp.MethodSum() {
+                    @Override
+                    public double run() {
+                        return 1;
+                    }
+                });
+                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(),chiamate,new HelperHttp.MethodSum(){
+                    @Override
+                    public double run(){
+                        return 1;
+                    }
+                });
+                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(),chiamate,new HelperHttp.MethodSum(){
+                    @Override
+                    public double run(){
+                        return 1;
+                    }
+                });
+                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(),chiamate,new HelperHttp.MethodSum(){
+                    @Override
+                    public double run(){
+                        return 1;
+                    }
+                });
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Another interface callback
             }
         });
-        */
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, FuoriSogliaFragment.newInstance())
-                .commit();
-        /*
-        final ViewFlipper MyViewFlipper = (ViewFlipper)findViewById(R.id.viewflipper);
-        Button button1 = (Button)findViewById(R.id.button1);
-        Button button2 = (Button)findViewById(R.id.button2);
-        Button button3 = (Button)findViewById(R.id.button3);
-
-        Animation animationFlipIn  = AnimationUtils.loadAnimation(this, R.anim.flipin);
-        Animation animationFlipOut = AnimationUtils.loadAnimation(this, R.anim.flipout);
-        MyViewFlipper.setInAnimation(animationFlipOut);
-        MyViewFlipper.setOutAnimation(animationFlipIn);
-
-        button1.setOnClickListener(new Button.OnClickListener(){
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                MyViewFlipper.showNext();
-            }});
-
-        button2.setOnClickListener(new Button.OnClickListener(){
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                MyViewFlipper.showNext();
-            }});
-
-        button3.setOnClickListener(new Button.OnClickListener(){
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                MyViewFlipper.showNext();
-            }});
-            */
     }
 
     @Override
@@ -106,7 +139,7 @@ public class MainActivity extends ActionBarActivity
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, FuoriSogliaFragment.newInstance())
+                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
                 .commit();
     }
 
@@ -128,6 +161,7 @@ public class MainActivity extends ActionBarActivity
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setBackgroundDrawable();
         actionBar.setTitle(mTitle);
     }
 
@@ -138,7 +172,7 @@ public class MainActivity extends ActionBarActivity
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.main, menu);
+            getMenuInflater().inflate(R.menu.fuori_soglia2, menu);
             restoreActionBar();
             return true;
         }
@@ -158,11 +192,6 @@ public class MainActivity extends ActionBarActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 
     /**
@@ -193,14 +222,14 @@ public class MainActivity extends ActionBarActivity
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_fuori_soglia2, container, false);
             return rootView;
         }
 
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
-            ((MainActivity) activity).onSectionAttached(
+            ((FuoriSoglia2) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }

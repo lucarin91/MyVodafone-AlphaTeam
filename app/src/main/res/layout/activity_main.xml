@@ -6,104 +6,10 @@
 
     <!-- As the main content view, the view below consumes the entire
          space available using match_parent in both dimensions. -->
+    <!-- As the main content view, the view below consumes the entire
+         space available using match_parent in both dimensions. -->
     <FrameLayout android:id="@+id/container" android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            >
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Text"
-                    android:id="@+id/textView3" />
-            </LinearLayout>
-
-            <ViewFlipper
-                android:id="@+id/viewflipper"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Second Screen"/>
-                    <Button
-                        android:id="@+id/button2"
-                        android:layout_width="@dimen/abc_action_bar_default_height_material"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="Flip to second page"
-                        android:layout_gravity="right" />
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="New Text"
-                        android:id="@+id/textView" />
-
-                    <Button
-                        android:id="@+id/button3"
-                        android:layout_width="@dimen/abc_action_bar_default_height_material"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="Flip to second page"
-                        android:layout_gravity="right" />/>
-                </LinearLayout>
-            </ViewFlipper>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Small Text"
-                    android:id="@+id/textView2"
-                    android:layout_gravity="center_horizontal" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="First Screen"/>
-                <Button
-                    android:id="@+id/button1"
-                    android:layout_width="@dimen/abc_action_bar_default_height_material"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="Flip to second page"
-                    android:layout_gravity="right" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/testButton"
-            android:layout_gravity="center" />
-    </FrameLayout>
+        android:layout_height="match_parent" />
 
     <!-- android:layout_gravity="start" tells DrawerLayout to treat
          this as a sliding drawer on the left side for left-to-right

@@ -2,6 +2,7 @@ package alpha_team.myvodafone_alpha_team;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ import alpha_team.myvodafone_alpha_team.helper.HelperHttp;
 
 
 public class FuoriSoglia extends ActionBarActivity {
+    String TAG = "FUORI_SOGLIA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,8 @@ public class FuoriSoglia extends ActionBarActivity {
                         break;
                 }
 
+                Log.i(TAG, data1.toString());
+                Log.i(TAG, data2.toString());
                 HelperHttp.downloadSumFuoriSoglia(getApplicationContext(),chiamate,new HelperHttp.MethodSum(){
                     @Override
                     public double run(){
