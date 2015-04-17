@@ -23,7 +23,8 @@ import java.net.URL;
  */
 public class HelperHttp {
 
-    public static void downloadSumFuoriSoglia(final Context context, final TextView text, final MethodSum fun) {
+    public static void downloadSumFuoriSoglia(final Context context, final TextView text, final int type,
+                                              final String startDate, final String endDate) {
         new AsyncTask<Void, Void, String>() {
 
 
@@ -36,7 +37,7 @@ public class HelperHttp {
             @Override
             protected String doInBackground(Void... params) {
                 String string = null;
-                return String.valueOf(fun.run());
+                return String.valueOf(JSONParser.computeCost(type,startDate,endDate));
             }
 
             @Override

@@ -22,8 +22,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import alpha_team.myvodafone_alpha_team.helper.HelperHttp;
+import alpha_team.myvodafone_alpha_team.helper.JSONParser;
 
 
 public class FuoriSoglia2 extends ActionBarActivity
@@ -79,51 +81,32 @@ public class FuoriSoglia2 extends ActionBarActivity
                 switch (pos){
                     case 0:
                         date = Calendar.getInstance();
-                        data1 = date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
+                        //Date d = date.getTime();
+                        data1 = date.get(Calendar.DAY_OF_MONTH)+"/"+String.valueOf(date.get(Calendar.MONTH) + 1)+"/"+date.get(Calendar.YEAR);
                         data2=data1;
                         break;
                     case 1:
                         date = Calendar.getInstance();
-                        data1 = date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
+                        data1 = date.get(Calendar.DAY_OF_MONTH)+"/"+String.valueOf(date.get(Calendar.MONTH) + 1)+"/"+date.get(Calendar.YEAR);
                         date.add(Calendar.MONTH,-1);
-                        data2 = date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
+                        data2 = date.get(Calendar.DAY_OF_MONTH)+"/"+String.valueOf(date.get(Calendar.MONTH) + 1)+"/"+date.get(Calendar.YEAR);
                         break;
                     case 2:
                         date = Calendar.getInstance();
                         date.add(Calendar.MONTH,-1);
-                        data1 = date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
+                        data1 = date.get(Calendar.DAY_OF_MONTH)+"/"+String.valueOf(date.get(Calendar.MONTH) + 1)+"/"+date.get(Calendar.YEAR);
                         date.add(Calendar.MONTH,-2);
-                        data2 = date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+"/"+date.get(Calendar.YEAR);
+                        data2 = date.get(Calendar.DAY_OF_MONTH)+"/"+String.valueOf(date.get(Calendar.MONTH) + 1)+"/"+date.get(Calendar.YEAR);
 
                         break;
                 }
 
                 Log.i(TAG, data1.toString());
                 Log.i(TAG, data2.toString());
-                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), chiamate, new HelperHttp.MethodSum() {
-                    @Override
-                    public double run() {
-                        return 1;
-                    }
-                });
-                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(),chiamate,new HelperHttp.MethodSum(){
-                    @Override
-                    public double run(){
-                        return 1;
-                    }
-                });
-                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(),chiamate,new HelperHttp.MethodSum(){
-                    @Override
-                    public double run(){
-                        return 1;
-                    }
-                });
-                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(),chiamate,new HelperHttp.MethodSum(){
-                    @Override
-                    public double run(){
-                        return 1;
-                    }
-                });
+                //HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), chiamate, 0, data2, data1);
+                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(),messaggi, 1, data2, data1);
+                //HelperHttp.downloadSumFuoriSoglia(getApplicationContext(),internet, 2, data2, data1);
+                //HelperHttp.downloadSumFuoriSoglia(getApplicationContext(),addOn, 3, data2, data1);
 
             }
 
