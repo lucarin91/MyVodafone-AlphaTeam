@@ -3,6 +3,7 @@ package alpha_team.myvodafone_alpha_team.helper;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.TextView;
 
 import org.apache.http.client.HttpClient;
 import org.json.JSONArray;
@@ -23,7 +24,7 @@ import java.net.URL;
 public class HelperHttp {
 
 
-    public static void downloadEvent(final Context context, final String url) {
+    public static void downloadSumFuoriSoglia(final Context context, final TextView chiamate, final String url) {
         new AsyncTask<Void, Void, JSONArray>() {
 
             @Override
@@ -45,8 +46,13 @@ public class HelperHttp {
             }
 
             @Override
-            protected void onPostExecute(JSONArray jsonArray) {
-                Log.i("HTTP",jsonArray.toString());
+            protected void onPostExecute(JSONArray json) {
+                Log.i("HTTP",json.toString());
+                try {
+                    chiamate.setText(json.getJSONObject(0).getInt("sum"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 /*
                 EventiListFragment.progressBar = false;
                 ((Activity) context).invalidateOptionsMenu();
@@ -121,8 +127,7 @@ public class HelperHttp {
 
         try {
             JSONObject json_data = new JSONObject(jsonString);
-            String status = json_data.getString("results");
-            return new JSONArray(status);
+            return json_data.getJSONArray("result");
         } catch (JSONException e) {
             Log.e("DataProvide-stringToJsonArray", "JSONException " + e);
             return null;

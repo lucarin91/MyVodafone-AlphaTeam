@@ -55,12 +55,12 @@ public class MainActivity extends ActionBarActivity
 
 
         Button button = (Button) findViewById(R.id.testButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        /*button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 HelperHttp.downloadEvent(getApplicationContext(), "http://192.168.43.228:2480/query/vf/sql/select%20*%20from%20rtxh");
             }
         });
-
+        */
 
         final ViewFlipper MyViewFlipper = (ViewFlipper)findViewById(R.id.viewflipper);
         Button button1 = (Button)findViewById(R.id.button1);
