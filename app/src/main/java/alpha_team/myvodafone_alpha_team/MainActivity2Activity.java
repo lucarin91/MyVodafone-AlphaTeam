@@ -6,8 +6,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import java.net.HttpCookie;
 import java.util.ArrayList;
 
+import alpha_team.myvodafone_alpha_team.helper.HelperHttp;
 import alpha_team.myvodafone_alpha_team.model.Chiamate;
 import alpha_team.myvodafone_alpha_team.model.chimateAdapter;
 
@@ -21,9 +23,12 @@ public class MainActivity2Activity extends ActionBarActivity {
 
         ListView listView = (ListView) findViewById(R.id.listView);
         //listView.setOnItemClickListener(this);
+        /*
         ArrayList<Chiamate> chiamList = new ArrayList<Chiamate>();
         chiamList.add(new Chiamate(123123,"aslkdj","jkljkl","jk"));
         listView.setAdapter( new chimateAdapter(getApplicationContext(), chiamList));
+        */
+        HelperHttp.downloadChiamate(getApplicationContext(),listView);
     }
 
 

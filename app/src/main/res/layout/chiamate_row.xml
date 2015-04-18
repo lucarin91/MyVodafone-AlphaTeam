@@ -38,13 +38,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Destinazione:"
-                android:id="@+id/destinazioneText" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Durata:"
                 android:id="@+id/durataText" />
 
@@ -80,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="27"
-                android:id="@+id/destinazione" />
+                android:id="@+id/costo" />
 
             <TextView
                 android:layout_width="wrap_content"

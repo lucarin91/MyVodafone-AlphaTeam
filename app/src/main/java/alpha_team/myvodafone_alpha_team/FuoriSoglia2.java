@@ -101,8 +101,10 @@ public class FuoriSoglia2 extends ActionBarActivity
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity2Activity.class);
-                startActivity(intent);
+                if (!chiamate.getText().toString().equals("€ 0,00")) {
+                    Intent intent = new Intent(getApplicationContext(), MainActivity2Activity.class);
+                    startActivity(intent);
+                }
             }
         });
 

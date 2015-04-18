@@ -32,12 +32,12 @@ import alpha_team.myvodafone_alpha_team.R;
         }
 
         TextView numero = (TextView) convertView.findViewById(R.id.numero);
-        TextView destinazione = (TextView) convertView.findViewById(R.id.destinazione);
+        TextView costo = (TextView) convertView.findViewById(R.id.costo);
         TextView durata = (TextView) convertView.findViewById(R.id.durata);
         TextView dataEora = (TextView) convertView.findViewById(R.id.dataEora);
 
         numero.setText(String.valueOf(chiamate.num));
-        destinazione.setText(chiamate.dest);
+        costo.setText(String.format( "€ %.2f",chiamate.spesa));
         durata.setText(chiamate.durata);
         dataEora.setText(chiamate.date);
 

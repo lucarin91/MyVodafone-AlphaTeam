@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.animation.AlphaAnimation;
 import android.widget.GridLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.apache.http.client.HttpClient;
@@ -19,6 +20,10 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+
+import alpha_team.myvodafone_alpha_team.model.Chiamate;
+import alpha_team.myvodafone_alpha_team.model.chimateAdapter;
 
 /**
  * Created by luca on 17/04/15.
@@ -62,6 +67,57 @@ public class HelperHttp {
                     // And then on your layout
                     grid.startAnimation(alpha);
                 }
+
+                /*
+                EventiListFragment.progressBar = false;
+                ((Activity) context).invalidateOptionsMenu();
+
+                if (jsonArray != null) {
+                    try {
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                        if (jsonArray.getJSONObject(0).getString("error").equals("serverOffline")) {
+                            alertDialogBuilder.setMessage(context.getString(R.string.serverOffline));
+                        } else {
+                            alertDialogBuilder.setMessage(context.getString(R.string.connAssente));
+                        }
+                        alertDialogBuilder.setPositiveButton(context.getString(R.string.chiudi), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    } catch (JSONException e) {
+                        saveJson(jsonArray, "eventi", context);
+                        loadIntoEventiAdapter(jsonArray);
+                    }
+                }
+                */
+            }
+        }.execute(null, null, null);
+    }
+
+    public static void downloadChiamate(final Context context, final ListView listView) {
+        new AsyncTask<Void, Void, ArrayList<Chiamate>>() {
+
+
+            @Override
+            protected void onPreExecute() {
+                //EventiListFragment.progressBar = true;
+                //((Activity) context).invalidateOptionsMenu();
+            }
+
+            @Override
+            protected ArrayList<Chiamate> doInBackground(Void... params) {
+                String string = null;
+                //return new ArrayList<Chiamate>();
+                return JSONParser.getData(0, "17/01/2015", "17/04/2015");
+            }
+
+            @Override
+            protected void onPostExecute(ArrayList<Chiamate> list) {
+                listView.setAdapter(new chimateAdapter(context, list));
 
                 /*
                 EventiListFragment.progressBar = false;
