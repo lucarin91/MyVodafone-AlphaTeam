@@ -7,8 +7,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 import alpha_team.myvodafone_alpha_team.model.Chiamate;
 
@@ -150,7 +153,8 @@ public class JSONParser {
 
                     try {
                         int x = o.getInt("START_D_T");
-                        Chiamate c = new Chiamate(o.getInt("O_P_NUMBER"), o.getDouble("RATED_FLAT_AMOUNT_EURO"), o.getString("ACTUAL_VOLUME"), o.getString("START_D_T"));
+                        String duration = gettimeFormat(x);
+                        Chiamate c = new Chiamate(o.getInt("O_P_NUMBER"), o.getDouble("RATED_FLAT_AMOUNT_EURO"), duration, o.getString("START_D_T"));
                         calls.add(c);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -169,6 +173,14 @@ public class JSONParser {
         }
 
         return calls;
+    }
+
+     private static String gettimeFormat(int noofseconds) {
+        TimeZone timeZone = TimeZone.getTimeZone("UTC");
+        SimpleDateFormat sdateFormat = new SimpleDateFormat("HH:mm:ss");
+        sdateFormat.setTimeZone(timeZone);
+        String formatedTime = sdateFormat.format(new Date(noofseconds));
+        return formatedTime;
     }
 
 }
