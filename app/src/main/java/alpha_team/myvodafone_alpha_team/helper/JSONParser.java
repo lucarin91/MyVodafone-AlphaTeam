@@ -152,8 +152,11 @@ public class JSONParser {
                     try {
                         int x = o.getInt("ACTUAL_VOLUME");
                         String duration = gettimeFormat(x);
-                        Chiamate c = new Chiamate(o.getString("O_P_NUMBER"), o.getDouble("RATED_FLAT_AMOUNT_EURO"), duration, o.getString("START_D_T"));
-                        calls.add(c);
+                        Double euro = o.getDouble("RATED_FLAT_AMOUNT_EURO");
+                        if (euro>0) {
+                            Chiamate c = new Chiamate(o.getString("O_P_NUMBER"), euro, duration, o.getString("START_D_T"));
+                            calls.add(c);
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

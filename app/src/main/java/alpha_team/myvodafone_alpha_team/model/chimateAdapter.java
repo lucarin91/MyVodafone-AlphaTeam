@@ -19,6 +19,8 @@ import alpha_team.myvodafone_alpha_team.R;
  * Created by luca on 17/04/15.
  */public class chimateAdapter extends ArrayAdapter<Chiamate> {
 
+    Typeface fontExb = Typeface.createFromAsset(getContext().getAssets(), "VODAFONEEXB.TTF");
+    Typeface fontErg = Typeface.createFromAsset(getContext().getAssets(), "VODAFONERG_0.TTF");
 
     public chimateAdapter(Context context, ArrayList<Chiamate> Evento) {
         super(context, R.layout.chiamate_row, Evento);
@@ -35,9 +37,6 @@ import alpha_team.myvodafone_alpha_team.R;
         TextView numero = (TextView) convertView.findViewById(R.id.numero);
         TextView costo = (TextView) convertView.findViewById(R.id.costo);
         TextView dataEora = (TextView) convertView.findViewById(R.id.dataEora);
-
-        Typeface fontExb = Typeface.createFromAsset(getContext().getAssets(), "VODAFONEEXB.TTF");
-        Typeface fontErg = Typeface.createFromAsset(getContext().getAssets(), "VODAFONERG_0.TTF");
 
         costo.setTypeface(fontExb);
         numero.setTypeface(fontErg);
