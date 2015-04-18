@@ -98,9 +98,8 @@ public class HelperHttp {
         }.execute(null, null, null);
     }
 
-    public static void downloadChiamate(final Context context, final ListView listView) {
+    public static void downloadChiamate(final Context context, final ListView listView, final String dataStart, final String dataEnd) {
         new AsyncTask<Void, Void, ArrayList<Chiamate>>() {
-
 
             @Override
             protected void onPreExecute() {
@@ -112,7 +111,7 @@ public class HelperHttp {
             protected ArrayList<Chiamate> doInBackground(Void... params) {
                 String string = null;
                 //return new ArrayList<Chiamate>();
-                return JSONParser.getData(0, "17/01/2015", "17/04/2015");
+                return JSONParser.getData(0, dataStart, dataEnd);
             }
 
             @Override

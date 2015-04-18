@@ -1,6 +1,7 @@
 package alpha_team.myvodafone_alpha_team;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -23,12 +24,16 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.GridLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import alpha_team.myvodafone_alpha_team.helper.HelperHttp;
 import alpha_team.myvodafone_alpha_team.helper.JSONParser;
@@ -48,6 +53,10 @@ public class FuoriSoglia2 extends ActionBarActivity
      */
     private CharSequence mTitle;
     String TAG = "FUORI_SOGLIA";
+
+    String data1 = "";
+    String data2 = "";
+    final Calendar myCalendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +112,8 @@ public class FuoriSoglia2 extends ActionBarActivity
             public void onClick(View view) {
                 if (!chiamate.getText().toString().equals("€ 0,00")) {
                     Intent intent = new Intent(getApplicationContext(), MainActivity2Activity.class);
+                    intent.putExtra("data1",data1);
+                    intent.putExtra("data2",data2);
                     startActivity(intent);
                 }
             }
@@ -121,8 +132,8 @@ public class FuoriSoglia2 extends ActionBarActivity
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int pos, long id) {
-                String data1 = "";
-                String data2 = "";
+                data1 = "";
+                data2 = "";
                 Calendar date = null;
                 switch (pos){
                     case 0:
@@ -143,16 +154,48 @@ public class FuoriSoglia2 extends ActionBarActivity
                         data1 = date.get(Calendar.DAY_OF_MONTH)+"/"+String.valueOf(date.get(Calendar.MONTH) + 1)+"/"+date.get(Calendar.YEAR);
                         date.add(Calendar.MONTH,-2);
                         data2 = date.get(Calendar.DAY_OF_MONTH)+"/"+String.valueOf(date.get(Calendar.MONTH) + 1)+"/"+date.get(Calendar.YEAR);
+                    case 3:
+                        new DatePickerDialog(FuoriSoglia2.this, new DatePickerDialog.OnDateSetListener() {
 
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                                  int dayOfMonth) {
+                                data1=dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
+
+                                new DatePickerDialog(FuoriSoglia2.this, new DatePickerDialog.OnDateSetListener() {
+
+                                    @Override
+                                    public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                                          int dayOfMonth) {
+                                        data2=dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
+                                        Log.i(TAG, data1.toString());
+                                        Log.i(TAG, data2.toString());
+                                        HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), chiamate, chiamateGrid, 0, data2, data1);
+                                        HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), messaggi, messaggiGrid, 1, data2, data1);
+                                        HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), internet, internetGrid, 2, data2, data1);
+                                        HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), addOn, addOnGrid, 3, data2, data1);
+
+                                    }
+
+                                }, myCalendar
+                                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                            }
+
+                        }, myCalendar
+                                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                                myCalendar.get(Calendar.DAY_OF_MONTH)).show();
                         break;
                 }
 
-                Log.i(TAG, data1.toString());
-                Log.i(TAG, data2.toString());
-                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), chiamate, chiamateGrid, 0, data2, data1);
-                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), messaggi, messaggiGrid, 1, data2, data1);
-                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), internet, internetGrid, 2, data2, data1);
-                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), addOn, addOnGrid, 3, data2, data1);
+                if (pos!=3) {
+                    Log.i(TAG, data1.toString());
+                    Log.i(TAG, data2.toString());
+                    HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), chiamate, chiamateGrid, 0, data2, data1);
+                    HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), messaggi, messaggiGrid, 1, data2, data1);
+                    HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), internet, internetGrid, 2, data2, data1);
+                    HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), addOn, addOnGrid, 3, data2, data1);
+                }
 
             }
 
@@ -261,5 +304,4 @@ public class FuoriSoglia2 extends ActionBarActivity
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
-
 }

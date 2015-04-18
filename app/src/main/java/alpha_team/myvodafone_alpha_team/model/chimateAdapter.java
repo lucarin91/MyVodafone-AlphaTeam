@@ -1,6 +1,7 @@
 package alpha_team.myvodafone_alpha_team.model;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,12 +34,19 @@ import alpha_team.myvodafone_alpha_team.R;
 
         TextView numero = (TextView) convertView.findViewById(R.id.numero);
         TextView costo = (TextView) convertView.findViewById(R.id.costo);
-        TextView durata = (TextView) convertView.findViewById(R.id.durata);
+        //TextView durata = (TextView) convertView.findViewById(R.id.durata);
         TextView dataEora = (TextView) convertView.findViewById(R.id.dataEora);
 
-        numero.setText(String.valueOf(chiamate.num));
+        Typeface fontExb = Typeface.createFromAsset(getContext().getAssets(), "VODAFONEEXB.TTF");
+        Typeface fontErg = Typeface.createFromAsset(getContext().getAssets(), "VODAFONERG_0.TTF");
+
+        costo.setTypeface(fontExb);
+        numero.setTypeface(fontErg);
+        dataEora.setTypeface(fontErg);
+
+        numero.setText(chiamate.num);
         costo.setText(String.format( "€ %.2f",chiamate.spesa));
-        durata.setText(chiamate.durata);
+        //durata.setText(chiamate.durata);
         dataEora.setText(chiamate.date);
 
         return convertView;

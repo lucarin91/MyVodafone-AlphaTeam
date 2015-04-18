@@ -4,5 +4,6 @@
         <item>Oggi</item>
         <item>Mese Corrente</item>
         <item>Mese Precedente</item>
+        <item>--seleziona data--</item>
     </string-array>
 </resources>

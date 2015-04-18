@@ -137,6 +137,7 @@ public class JSONParser {
             String urlQuery = "http://" + URL + ":2480/query/vf/sql/select%20RATED_FLAT_AMOUNT_EURO,O_P_NUMBER,START_D_T,ACTUAL_VOLUME%20from%20rtxh%20where%20(START_D_T%20>=%20'" + dateStart + "')%20AND%20(START_D_T%20<=%20'" + dateEnd + "')%20and%20(CALL_TYPE=01)%20and%20(SNCODE%20=%201)";
             try {
                 s = HelperHttp.downloadUrl(urlQuery);
+                Log.i("HTTP", s);
             } catch (Exception e) {
                 System.err.println("errore");
             }
@@ -152,9 +153,9 @@ public class JSONParser {
                     }
 
                     try {
-                        int x = o.getInt("START_D_T");
+                        int x = o.getInt("ACTUAL_VOLUME");
                         String duration = gettimeFormat(x);
-                        Chiamate c = new Chiamate(o.getInt("O_P_NUMBER"), o.getDouble("RATED_FLAT_AMOUNT_EURO"), duration, o.getString("START_D_T"));
+                        Chiamate c = new Chiamate(o.getString("O_P_NUMBER"), o.getDouble("RATED_FLAT_AMOUNT_EURO"), duration, o.getString("START_D_T"));
                         calls.add(c);
                     } catch (JSONException e) {
                         e.printStackTrace();

@@ -1,5 +1,7 @@
 package alpha_team.myvodafone_alpha_team;
 
+import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,13 +24,20 @@ public class MainActivity2Activity extends ActionBarActivity {
         setContentView(R.layout.activity_main_activity2);
 
         ListView listView = (ListView) findViewById(R.id.listView);
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setCustomView(R.layout.action_bar);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
         //listView.setOnItemClickListener(this);
         /*
         ArrayList<Chiamate> chiamList = new ArrayList<Chiamate>();
         chiamList.add(new Chiamate(123123,"aslkdj","jkljkl","jk"));
         listView.setAdapter( new chimateAdapter(getApplicationContext(), chiamList));
         */
-        HelperHttp.downloadChiamate(getApplicationContext(),listView);
+        Intent intent = getIntent();
+        String data1 = intent.getStringExtra("data1");
+        String data2 = intent.getStringExtra("data2");
+        HelperHttp.downloadChiamate(getApplicationContext(),listView, data2, data1);
     }
 
 
