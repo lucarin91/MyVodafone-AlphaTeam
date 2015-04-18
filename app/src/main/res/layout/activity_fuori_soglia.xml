@@ -4,7 +4,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="alpha_team.myvodafone_alpha_team.FuoriSoglia">
+    tools:context="alpha_team.myvodafone_alpha_team.FuoriSoglia"
+    android:background="#ffffffff">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -26,7 +27,10 @@
 
             <GridLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:background="#fff4f4f4"
+                android:padding="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -35,23 +39,27 @@
                     android:text="Chiamate"
                     android:id="@+id/Chiamate"
                     android:layout_row="0"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:layout_gravity="center" />
 
                 <TextView
-                    android:layout_width="101dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Messaggi"
                     android:id="@+id/chiamate"
                     android:layout_row="0"
                     android:layout_column="4"
-                    android:layout_gravity="right" />
+                    android:layout_gravity="center|right" />
 
             </GridLayout>
 
             <GridLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:background="#fff4f4f4"
+                android:padding="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -60,7 +68,8 @@
                     android:text="Messaggi"
                     android:id="@+id/messaggi"
                     android:layout_row="0"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:layout_gravity="center"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -70,13 +79,16 @@
                     android:id="@+id/textView7"
                     android:layout_row="0"
                     android:layout_column="4"
-                    android:layout_gravity="right" />
+                    android:layout_gravity="center"/>
 
             </GridLayout>
 
             <GridLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:background="#fff4f4f4"
+                android:padding="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -93,6 +105,32 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Medium Text"
                     android:id="@+id/textView5"
+                    android:layout_row="0"
+                    android:layout_column="4" />
+            </GridLayout>
+
+            <GridLayout
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:background="#fff4f4f4"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Internet"
+                    android:id="@+id/textView44"
+                    android:layout_row="0"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Medium Text"
+                    android:id="@+id/addOn"
                     android:layout_row="0"
                     android:layout_column="4" />
             </GridLayout>

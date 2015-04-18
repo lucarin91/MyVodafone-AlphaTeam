@@ -1,6 +1,9 @@
 package alpha_team.myvodafone_alpha_team;
 
 import android.app.Activity;
+import android.content.res.ColorStateList;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -18,6 +21,7 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -49,18 +53,46 @@ public class FuoriSoglia2 extends ActionBarActivity
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
+        //mTitle = getTitle();
+
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setCustomView(R.layout.action_bar);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        //actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+        Typeface fontExb = Typeface.createFromAsset(getAssets(), "VODAFONEEXB.TTF");
+        Typeface fontErg = Typeface.createFromAsset(getAssets(), "VODAFONERG_0.TTF");
 
         final TextView chiamate = (TextView) findViewById(R.id.chiamate);
         final TextView messaggi = (TextView) findViewById(R.id.messaggi);
         final TextView internet = (TextView) findViewById(R.id.internet);
         final TextView addOn = (TextView) findViewById(R.id.addOn);
+
+        final TextView chiamateText = (TextView) findViewById(R.id.chiamateText);
+        final TextView messaggiText = (TextView) findViewById(R.id.messaggiText);
+        final TextView internetText = (TextView) findViewById(R.id.internetText);
+        final TextView addOnText = (TextView) findViewById(R.id.addonText);
         //HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), chiamate, "");
+
+        chiamate.setTypeface(fontExb);
+        messaggi.setTypeface(fontExb);
+        internet.setTypeface(fontExb);
+        addOn.setTypeface(fontExb);
+
+        chiamateText.setTypeface(fontErg);
+        messaggiText.setTypeface(fontErg);
+        internetText.setTypeface(fontErg);
+        addOnText.setTypeface(fontErg);
+
+        final GridLayout chiamateGrid = (GridLayout) findViewById(R.id.chiamateGrid);
+        final GridLayout messaggiGrid = (GridLayout) findViewById(R.id.messaggiGrid);
+        final GridLayout internetGrid = (GridLayout) findViewById(R.id.iternetGrid);
+        final GridLayout addOnGrid = (GridLayout) findViewById(R.id.addonGrid);
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -103,10 +135,10 @@ public class FuoriSoglia2 extends ActionBarActivity
 
                 Log.i(TAG, data1.toString());
                 Log.i(TAG, data2.toString());
-                //HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), chiamate, 0, data2, data1);
-                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(),messaggi, 1, data2, data1);
-                //HelperHttp.downloadSumFuoriSoglia(getApplicationContext(),internet, 2, data2, data1);
-                //HelperHttp.downloadSumFuoriSoglia(getApplicationContext(),addOn, 3, data2, data1);
+                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), chiamate, chiamateGrid, 0, data2, data1);
+                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), messaggi, messaggiGrid, 1, data2, data1);
+                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), internet, internetGrid, 2, data2, data1);
+                HelperHttp.downloadSumFuoriSoglia(getApplicationContext(), addOn, addOnGrid, 3, data2, data1);
 
             }
 
@@ -150,15 +182,15 @@ public class FuoriSoglia2 extends ActionBarActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
+        //if (!mNavigationDrawerFragment.isDrawerOpen()) {
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.fuori_soglia2, menu);
             restoreActionBar();
             return true;
-        }
-        return super.onCreateOptionsMenu(menu);
+        //}
+        //return super.onCreateOptionsMenu(menu);
     }
 
     @Override

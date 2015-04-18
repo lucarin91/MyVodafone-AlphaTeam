@@ -1,8 +1,11 @@
 package alpha_team.myvodafone_alpha_team.helper;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.Calendar;
 
 /**
@@ -24,7 +27,7 @@ public class JSONParser {
         if (service == 0) { //calls
 
             //String urlQuery = "http://"+URL+":2480/query/vf/sql/select RATED_FLAT_AMOUNT_EURO from rtxh where (START_D_T >= '" + dateStart + "' AND (START_D_T <= '" + dateEnd + "') AND (CALL_TYPE = 1) AND (SNCODE = 1)";
-            String urlQuery = "http://" + URL + ":2480/query/vf/sql/select%20RATED_FLAT_AMOUNT_EURO%20from%20rtxh%20where%20(START_D_T%20>=%20'" + dateStart + "')%20AND%20(START_D_T%20<=%20'" + dateEnd + "')%20and%20(CALL_TYPE%20=%201)%20and%20(SNCODE%20=%201)";
+            String urlQuery = "http://" + URL + ":2480/query/vf/sql/select%20RATED_FLAT_AMOUNT_EURO%20from%20rtxh%20where%20(START_D_T%20>=%20'" + dateStart + "')%20AND%20(START_D_T%20<=%20'" + dateEnd + "')%20and%20(CALL_TYPE=01)%20and%20(SNCODE%20=%201)";
 
             try {
                 s = HelperHttp.downloadUrl(urlQuery);
@@ -45,13 +48,14 @@ public class JSONParser {
                 return sum;
             }
         } else if (service == 1) { //sms
-            String urlQuery = "http://" + URL + ":2480/query/vf/sql/select%20RATED_FLAT_AMOUNT_EURO%20from%20rtxh%20where%20(START_D_T%20>=%20'" + dateStart + "')%20AND%20(START_D_T%20<=%20'" + dateEnd + "')%20and%20(CALL_TYPE%20=%201)%20and%20(SNCODE%20=%2014)";
+            String urlQuery = "http://" + URL + ":2480/query/vf/sql/select%20RATED_FLAT_AMOUNT_EURO%20from%20rtxh%20where%20(START_D_T%20>=%20'" + dateStart + "')%20AND%20(START_D_T%20<=%20'" + dateEnd + "')%20and%20(CALL_TYPE=1)%20and%20(SNCODE=14)";
+            Log.i("JSON",urlQuery);
             try {
                 s = HelperHttp.downloadUrl(urlQuery);
             } catch (Exception e) {
                 System.err.println("errore");
             }
-
+            Log.i("JSON",s);
             if (!s.isEmpty()) {
                 arr = (JSONArray) HelperHttp.stringToJsonArray(s);
 
@@ -62,6 +66,7 @@ public class JSONParser {
 
                     }
                 }
+                Log.i("JSON", String.valueOf(sum));
                 return sum;
             }
 

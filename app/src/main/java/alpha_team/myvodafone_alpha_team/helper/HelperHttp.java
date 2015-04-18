@@ -3,6 +3,8 @@ package alpha_team.myvodafone_alpha_team.helper;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.animation.AlphaAnimation;
+import android.widget.GridLayout;
 import android.widget.TextView;
 
 import org.apache.http.client.HttpClient;
@@ -23,7 +25,7 @@ import java.net.URL;
  */
 public class HelperHttp {
 
-    public static void downloadSumFuoriSoglia(final Context context, final TextView text, final int type,
+    public static void downloadSumFuoriSoglia(final Context context, final TextView text, final GridLayout grid, final int type,
                                               final String startDate, final String endDate) {
         new AsyncTask<Void, Void, String>() {
 
@@ -37,13 +39,29 @@ public class HelperHttp {
             @Override
             protected String doInBackground(Void... params) {
                 String string = null;
-                return String.valueOf(JSONParser.computeCost(type,startDate,endDate));
+                return String.format( "€ %.2f", JSONParser.computeCost(type,startDate,endDate));
+                //return String.valueOf(JSONParser.computeCost(type,startDate,endDate));
             }
 
             @Override
             protected void onPostExecute(String string) {
                 Log.i("HTTP",string);
                 text.setText(string);
+                if (string.equals("€ 0,00")){
+                    AlphaAnimation alpha = new AlphaAnimation(0.5F, 0.5F);
+                    alpha.setDuration(0); // Make animation instant
+                    alpha.setFillAfter(true); // Tell it to persist after the animation ends
+                        // And then on your layout
+                    grid.startAnimation(alpha);
+
+                    Log.i("HELPERHTTP", "entrato");
+                }else{
+                    AlphaAnimation alpha = new AlphaAnimation(1F, 1F);
+                    alpha.setDuration(0); // Make animation instant
+                    alpha.setFillAfter(true); // Tell it to persist after the animation ends
+                    // And then on your layout
+                    grid.startAnimation(alpha);
+                }
 
                 /*
                 EventiListFragment.progressBar = false;
