@@ -7,13 +7,14 @@ import java.util.Date;
  */
 public class Chiamate {
     int num;
-    String dest;
+    //String dest;
+    double spesa;
     String durata;
     String date;
 
-   public Chiamate(int num, String dest, String durata, String data){
+   public Chiamate(int num, double spesa, String durata, String data){
         this.num=num;
-        this.dest=dest;
+        this.spesa=spesa;
         this.durata=durata;
         this.date=data;
     }

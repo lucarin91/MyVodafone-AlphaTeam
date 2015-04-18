@@ -3,10 +3,14 @@ package alpha_team.myvodafone_alpha_team.helper;
 import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Calendar;
+
+import alpha_team.myvodafone_alpha_team.model.Chiamate;
 
 /**
  * Created by Stefano on 17/04/2015.
@@ -119,14 +123,14 @@ public class JSONParser {
         return 0;
     }
 
-    public static JSONArray getData(int service, String dateStart, String dateEnd) {
+    public static ArrayList<Chiamate> getData(int service, String dateStart, String dateEnd) {
         final String URL = "192.168.43.228";
         String s = new String();
         JSONArray arr = new JSONArray();
+        ArrayList<Chiamate> calls = new ArrayList<>();
         double sum = 0;
 
         if (service == 0) { //calls
-            //String urlQuery = "http://"+URL+":2480/query/vf/sql/select RATED_FLAT_AMOUNT_EURO from rtxh where (START_D_T >= '" + dateStart + "' AND (START_D_T <= '" + dateEnd + "') AND (CALL_TYPE = 1) AND (SNCODE = 1)";
             String urlQuery = "http://" + URL + ":2480/query/vf/sql/select%20RATED_FLAT_AMOUNT_EURO,O_P_NUMBER,START_D_T,ACTUAL_VOLUME%20from%20rtxh%20where%20(START_D_T%20>=%20'" + dateStart + "')%20AND%20(START_D_T%20<=%20'" + dateEnd + "')%20and%20(CALL_TYPE=01)%20and%20(SNCODE%20=%201)";
             try {
                 s = HelperHttp.downloadUrl(urlQuery);
@@ -135,17 +139,36 @@ public class JSONParser {
             }
             if (!s.isEmpty()) {
                 arr = (JSONArray) HelperHttp.stringToJsonArray(s);
-                return arr;
+                JSONObject o = new JSONObject();
+
+                for(int i = 0; i < arr.length(); i++){
+                    try {
+                        o = (JSONObject) arr.getJSONObject(i);
+                    } catch (Exception e){
+
+                    }
+
+                    try {
+                        int x = o.getInt("START_D_T");
+                        Chiamate c = new Chiamate(o.getInt("O_P_NUMBER"), o.getDouble("RATED_FLAT_AMOUNT_EURO"), o.getString("ACTUAL_VOLUME"), o.getString("START_D_T"));
+                        calls.add(c);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                return calls;
             }
         } else if (service == 1) { //sms
-            return arr;
+            return calls;
         } else if (service == 2) { //data
-             return arr;
+             return calls;
         } else if (service == 3) {
-            return arr;
+            return calls;
         }
 
-        return arr;
+        return calls;
     }
 
 }
