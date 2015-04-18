@@ -1,6 +1,8 @@
 package alpha_team.myvodafone_alpha_team;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -30,6 +32,7 @@ import java.util.Date;
 
 import alpha_team.myvodafone_alpha_team.helper.HelperHttp;
 import alpha_team.myvodafone_alpha_team.helper.JSONParser;
+import alpha_team.myvodafone_alpha_team.model.Chiamate;
 
 
 public class FuoriSoglia2 extends ActionBarActivity
@@ -93,6 +96,15 @@ public class FuoriSoglia2 extends ActionBarActivity
         final GridLayout messaggiGrid = (GridLayout) findViewById(R.id.messaggiGrid);
         final GridLayout internetGrid = (GridLayout) findViewById(R.id.iternetGrid);
         final GridLayout addOnGrid = (GridLayout) findViewById(R.id.addonGrid);
+
+        chiamateGrid.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity2Activity.class);
+                startActivity(intent);
+            }
+        });
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
