@@ -7,7 +7,6 @@ import java.util.Date;
  */
 public class Chiamate {
     String num;
-    //String dest;
     double spesa;
     String durata;
     String date;

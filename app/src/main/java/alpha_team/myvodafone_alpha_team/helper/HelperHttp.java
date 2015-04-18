@@ -34,18 +34,10 @@ public class HelperHttp {
                                               final String startDate, final String endDate) {
         new AsyncTask<Void, Void, String>() {
 
-
-            @Override
-            protected void onPreExecute() {
-                //EventiListFragment.progressBar = true;
-                //((Activity) context).invalidateOptionsMenu();
-            }
-
             @Override
             protected String doInBackground(Void... params) {
                 String string = null;
                 return String.format( "€ %.2f", JSONParser.computeCost(type,startDate,endDate));
-                //return String.valueOf(JSONParser.computeCost(type,startDate,endDate));
             }
 
             @Override
@@ -56,7 +48,6 @@ public class HelperHttp {
                     AlphaAnimation alpha = new AlphaAnimation(0.5F, 0.5F);
                     alpha.setDuration(0); // Make animation instant
                     alpha.setFillAfter(true); // Tell it to persist after the animation ends
-                        // And then on your layout
                     grid.startAnimation(alpha);
 
                     Log.i("HELPERHTTP", "entrato");
@@ -64,36 +55,8 @@ public class HelperHttp {
                     AlphaAnimation alpha = new AlphaAnimation(1F, 1F);
                     alpha.setDuration(0); // Make animation instant
                     alpha.setFillAfter(true); // Tell it to persist after the animation ends
-                    // And then on your layout
                     grid.startAnimation(alpha);
                 }
-
-                /*
-                EventiListFragment.progressBar = false;
-                ((Activity) context).invalidateOptionsMenu();
-
-                if (jsonArray != null) {
-                    try {
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-                        if (jsonArray.getJSONObject(0).getString("error").equals("serverOffline")) {
-                            alertDialogBuilder.setMessage(context.getString(R.string.serverOffline));
-                        } else {
-                            alertDialogBuilder.setMessage(context.getString(R.string.connAssente));
-                        }
-                        alertDialogBuilder.setPositiveButton(context.getString(R.string.chiudi), new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        alertDialog.show();
-                    } catch (JSONException e) {
-                        saveJson(jsonArray, "eventi", context);
-                        loadIntoEventiAdapter(jsonArray);
-                    }
-                }
-                */
             }
         }.execute(null, null, null);
     }
@@ -102,48 +65,14 @@ public class HelperHttp {
         new AsyncTask<Void, Void, ArrayList<Chiamate>>() {
 
             @Override
-            protected void onPreExecute() {
-                //EventiListFragment.progressBar = true;
-                //((Activity) context).invalidateOptionsMenu();
-            }
-
-            @Override
             protected ArrayList<Chiamate> doInBackground(Void... params) {
                 String string = null;
-                //return new ArrayList<Chiamate>();
                 return JSONParser.getData(0, dataStart, dataEnd);
             }
 
             @Override
             protected void onPostExecute(ArrayList<Chiamate> list) {
                 listView.setAdapter(new chimateAdapter(context, list));
-
-                /*
-                EventiListFragment.progressBar = false;
-                ((Activity) context).invalidateOptionsMenu();
-
-                if (jsonArray != null) {
-                    try {
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-                        if (jsonArray.getJSONObject(0).getString("error").equals("serverOffline")) {
-                            alertDialogBuilder.setMessage(context.getString(R.string.serverOffline));
-                        } else {
-                            alertDialogBuilder.setMessage(context.getString(R.string.connAssente));
-                        }
-                        alertDialogBuilder.setPositiveButton(context.getString(R.string.chiudi), new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        alertDialog.show();
-                    } catch (JSONException e) {
-                        saveJson(jsonArray, "eventi", context);
-                        loadIntoEventiAdapter(jsonArray);
-                    }
-                }
-                */
             }
         }.execute(null, null, null);
     }
@@ -198,8 +127,4 @@ public class HelperHttp {
             return null;
         }
     }
-    public interface MethodSum{
-        public double run();
-    }
-
 }

@@ -34,7 +34,6 @@ import alpha_team.myvodafone_alpha_team.R;
 
         TextView numero = (TextView) convertView.findViewById(R.id.numero);
         TextView costo = (TextView) convertView.findViewById(R.id.costo);
-        //TextView durata = (TextView) convertView.findViewById(R.id.durata);
         TextView dataEora = (TextView) convertView.findViewById(R.id.dataEora);
 
         Typeface fontExb = Typeface.createFromAsset(getContext().getAssets(), "VODAFONEEXB.TTF");
@@ -46,7 +45,6 @@ import alpha_team.myvodafone_alpha_team.R;
 
         numero.setText(chiamate.num);
         costo.setText(String.format( "€ %.2f",chiamate.spesa));
-        //durata.setText(chiamate.durata);
         dataEora.setText(chiamate.date);
 
         return convertView;

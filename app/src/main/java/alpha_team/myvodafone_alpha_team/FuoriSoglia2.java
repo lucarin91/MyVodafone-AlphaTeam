@@ -154,6 +154,7 @@ public class FuoriSoglia2 extends ActionBarActivity
                         data1 = date.get(Calendar.DAY_OF_MONTH)+"/"+String.valueOf(date.get(Calendar.MONTH) + 1)+"/"+date.get(Calendar.YEAR);
                         date.add(Calendar.MONTH,-2);
                         data2 = date.get(Calendar.DAY_OF_MONTH)+"/"+String.valueOf(date.get(Calendar.MONTH) + 1)+"/"+date.get(Calendar.YEAR);
+                        break;
                     case 3:
                         new DatePickerDialog(FuoriSoglia2.this, new DatePickerDialog.OnDateSetListener() {
 
