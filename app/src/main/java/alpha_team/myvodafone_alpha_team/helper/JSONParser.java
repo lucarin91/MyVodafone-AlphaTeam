@@ -118,4 +118,34 @@ public class JSONParser {
 
         return 0;
     }
+
+    public static JSONArray getData(int service, String dateStart, String dateEnd) {
+        final String URL = "192.168.43.228";
+        String s = new String();
+        JSONArray arr = new JSONArray();
+        double sum = 0;
+
+        if (service == 0) { //calls
+            //String urlQuery = "http://"+URL+":2480/query/vf/sql/select RATED_FLAT_AMOUNT_EURO from rtxh where (START_D_T >= '" + dateStart + "' AND (START_D_T <= '" + dateEnd + "') AND (CALL_TYPE = 1) AND (SNCODE = 1)";
+            String urlQuery = "http://" + URL + ":2480/query/vf/sql/select%20RATED_FLAT_AMOUNT_EURO,O_P_NUMBER,START_D_T,ACTUAL_VOLUME%20from%20rtxh%20where%20(START_D_T%20>=%20'" + dateStart + "')%20AND%20(START_D_T%20<=%20'" + dateEnd + "')%20and%20(CALL_TYPE=01)%20and%20(SNCODE%20=%201)";
+            try {
+                s = HelperHttp.downloadUrl(urlQuery);
+            } catch (Exception e) {
+                System.err.println("errore");
+            }
+            if (!s.isEmpty()) {
+                arr = (JSONArray) HelperHttp.stringToJsonArray(s);
+                return arr;
+            }
+        } else if (service == 1) { //sms
+            return arr;
+        } else if (service == 2) { //data
+             return arr;
+        } else if (service == 3) {
+            return arr;
+        }
+
+        return arr;
+    }
+
 }
